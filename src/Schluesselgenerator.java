@@ -1,77 +1,53 @@
-public class Schluesselgenerator {
+import org.jetbrains.annotations.NotNull;
 
-    private int[] privKey = new int[2];
-    private int[] pubKey = new int[2];
-    int p;
-    int q;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
+import java.math.BigInteger;
+import java.util.ArrayList;
 
-    public Schluesselgenerator(int p, int q){
-        this.p = p;
-        this.q = q;
-        this.privKey = berechnePrivKey();
-        this.pubKey = berechnePubKey();
+public class Encrypter {
+
+    int[] key;
+    public Encrypter(int p, int q) throws notAPrimeException {
+        Schluesselgenerator sg = new Schluesselgenerator(p,q);
+        this.key = sg.berechnePubKey();
     }
 
-    public int getP(){
-        return p;
+    public int[] getKey(){
+        return key;
     }
 
-    public int getQ(){
-        return q;
-    }
-
-    public void berechnePrivKey(){
-        int[] privKey = new int[2];
-        privKey[1] = findE();
-        privKey[2] = berechneGeneratorzahl();
-        this.privKey = privKey;
-    }
-
-    public void berechnePubKey(){
-        int[] pubKey = new int[2];
-        pubKey[1] = findD();
-        pubKey[2] = berechneGeneratorzahl();
-        this.pubKey = pubKey;
-    }
-
-    public int[] getPrivKey(){
-        return privKey;
-    }
-
-    public int[] getPubKey(){
-        return pubKey;
-    }
-
-    public int berechneGeneratorzahl(){
-        return getP() * getQ();
-    }
-
-    public int berechneVarPhi(){
-        return (getP() - 1) * (getQ() - 1);
-    }
-
-    public int berechneGGT(int a, int b){
-        if (b == 0){
-            return a;
-        } else {
-            return berechneGGT(b, a%b);
+    public ArrayList<Integer> konvertiereInNumeric(String text){
+        int numeric;
+        ArrayList<Integer> numerics = new ArrayList<Integer>();
+        for (int i = 0; i < text.length(); i++) {
+            String s = String.valueOf(text.charAt(i));
+            try {
+                numeric = Byte.toUnsignedInt((s.getBytes("US-ASCII"))[0]);
+                numerics.add(numeric);
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+            /*
+            //throws SonderzeichenException //einfuegen
+            if (numeric != -2) {
+                numerics.add(numeric);
+            } else {
+                throw new SonderzeichenException();
+            }
+             */
         }
+        System.out.println(numerics);
+        return numerics;
     }
 
-    public int findE(){
-        int e = 0;
-        while (berechneGGT(e, berechneVarPhi()) != 1){
-            e++;
+    public ArrayList<Integer> encrypt(int[] pubKey, @NotNull ArrayList<Integer> numerics) {
+        ArrayList<Integer> encrypted = new ArrayList<Integer>();
+        for (int i = 0; i < numerics.size(); i++) {
+            BigInteger kPowE = new BigInteger(new BigInteger(Integer.toString(numerics.get(i))).pow(pubKey[0]).toByteArray());
+            encrypted.add(kPowE.intValue() % pubKey[1]);
         }
-        return e;
+        return encrypted;
     }
-
-    public int findD(){
-        int d = 0;
-        while ((d * findE())%berechneVarPhi() != 1){
-            d++;
-        }
-        return d;
-    }
-
 }
+
