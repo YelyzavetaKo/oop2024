@@ -5,11 +5,11 @@ public class Schluesselgenerator {
     private int[] privKey = new int[2];
     private int[] pubKey = new int[2];
 
-    public Schluesselgenerator(int p, int q) throws notAPrimeException {
+    public Schluesselgenerator(int p, int q) throws NotAPrimeException {
         if (!pruefeObPrimzahl(p)) {
-            throw new notAPrimeException(p);
+            throw new NotAPrimeException(p);
         } else if (!pruefeObPrimzahl(q)) {
-            throw new notAPrimeException(q);
+            throw new NotAPrimeException(q);
         } else {
             this.p = p;
             this.q = q;
