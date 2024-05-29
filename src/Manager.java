@@ -6,8 +6,8 @@ public class Manager {
     private Decrypter decrypter;
     private InputOutput inputOutput;
     private String dateiPfad;
-
-    public Manager(String dateiPfad){
+    private Schluesselgenerator sg;
+    public Manager(String dateiPfad, Schluesselgenerator sg){
         this.dateiPfad = dateiPfad;
         inputOutput = new InputOutput();
         decrypter = new Decrypter();
