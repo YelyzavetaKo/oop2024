@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class InputOutput {
@@ -24,6 +25,13 @@ public class InputOutput {
         BufferedWriter writer = new BufferedWriter(new FileWriter(dateiPfad, StandardCharsets.ISO_8859_1));
         writer.write(text);
         writer.close();
+    }
+
+    public void printOutNumeric(ArrayList<Integer> numeric){
+        for (int i = 0; i < numeric.size(); i++) {
+            System.out.print(numeric.get(i) + " ");
+        }
+        System.out.println();
     }
 
 }

@@ -59,7 +59,7 @@ public class Encrypter {
         int mod = 1;
         for (int i = 0; i < getKey()[0]; i++){
             mod = mod * k % getKey()[1];
-            System.out.println(mod);
+            //System.out.println(mod);
         }
         return mod;
     }
