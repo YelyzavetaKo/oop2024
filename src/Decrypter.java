@@ -1,6 +1,8 @@
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 public class Decrypter {
     public Decrypter(){}
 
@@ -9,9 +11,7 @@ public class Decrypter {
         System.out.println(privKey[1]);
         ArrayList<Integer> numericChar = new ArrayList<>();
         String[] split = text.split(" ");
-        for (int i = 0; i < split.length; i++) {
-            numericChar.add(Integer.parseInt(split[i]));
-        }
+        numericChar.addAll(Arrays.stream(split).map(Integer::parseInt).collect(Collectors.toList()));
         ArrayList<Integer> decrypted = new ArrayList<>();
         Iterator<Integer> it = numericChar.iterator();
         while(it.hasNext()){
@@ -32,13 +32,7 @@ public class Decrypter {
 
     public String konvertiereZuString(ArrayList<Integer> numeric){
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < numeric.size(); i++) {
-            if (numeric.get(i) == -1){
-                sb.append("\n");
-            } else {
-                sb.append((char)numeric.get(i).intValue());
-            }
-        }
+        numeric.forEach(num -> sb.append(num == -1 ? "\n" : new String(Character.toChars(num))));
         return sb.toString();
     }
 }
