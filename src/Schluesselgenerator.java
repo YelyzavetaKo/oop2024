@@ -124,7 +124,7 @@ public class Schluesselgenerator {
      * Findet einen privaten Schluessel nach dem RSA-Verfahren.
      * @return Gibt den privaten Schluessel als int[] zurueck. int[0] = d, int[1] = 1.
      */
-    public int[] berechnePrivKEy(){
+    public int[] berechnePrivKey(){
         privKey[0] = findD();
         privKey[1] = berechneGeneratorzahl();
         return privKey;
