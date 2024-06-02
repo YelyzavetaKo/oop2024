@@ -40,7 +40,7 @@ public class Encrypter {
                 encrypted.add(-1);
             } else {
                 try {
-                    numeric = Byte.toUnsignedInt(s.getBytes("US-ASCII")[0]);
+                    numeric = Byte.toUnsignedInt(s.getBytes("ISO_8859_1")[0]);
                     encrypted.add(calculateModuloOfKPowE(numeric));
                 } catch (UnsupportedEncodingException e) {
                     throw new RuntimeException("Zeichen <" + s + "> kann nicht codiert werden.");
