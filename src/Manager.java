@@ -42,7 +42,7 @@ public class Manager {
                 dateiPfad = "src/output.txt";
             } else if (action.equals("decrypt")) {
                 Decrypter decrypter = new Decrypter();
-                numerics = decrypter.decrypt(sg.berechnePrivKEy(), gedicht);
+                numerics = decrypter.decrypt(sg.berechnePrivKey(), gedicht);
                 inputOutput.printOutNumeric(numerics);
                 System.out.println();
                 gedicht = decrypter.konvertiereZuString(numerics);
