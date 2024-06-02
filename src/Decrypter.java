@@ -1,3 +1,6 @@
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -16,7 +19,19 @@ public class Decrypter {
         Iterator<Integer> it = numericChar.iterator();
         while(it.hasNext()){
             Integer decryptedChar= it.next();
-            decrypted.add(calculateModuloOfKPowE(decryptedChar, privKey));
+            if(decryptedChar == -1){
+                System.out.println();
+            } else { System.out.println(decryptedChar);
+            }
+            decryptedChar = calculateModuloOfKPowE(decryptedChar, privKey);
+
+
+            if(decryptedChar == -1){
+                System.out.println();
+            } else { System.out.println(decryptedChar);
+            }
+            decrypted.add(decryptedChar);
+
         }
         return decrypted;
     }
@@ -32,7 +47,15 @@ public class Decrypter {
 
     public String konvertiereZuString(ArrayList<Integer> numeric){
         StringBuilder sb = new StringBuilder();
-        numeric.forEach(num -> sb.append(num == -1 ? "\n" : new String(Character.toChars(num))));
+        //ISO_8859_1
+        numeric.forEach(num -> {
+            if(num == -1){
+                sb.append("\n");
+            } else {
+                byte[] bytes = new byte[]{num.byteValue()};
+                sb.append(new String(bytes, StandardCharsets.ISO_8859_1));
+            }
+        });
         return sb.toString();
     }
 }

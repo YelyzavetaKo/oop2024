@@ -37,6 +37,8 @@ public class Manager {
                 int[] pubKey = encrypter.getKey();
                 System.out.println("Public Key: " + pubKey[0] + " " + pubKey[1]);
                 numerics = encrypter.encrypt(gedicht);
+                gedicht = inputOutput.arrayToString(numerics);
+                System.out.println(gedicht);
                 dateiPfad = "src/output.txt";
             } else if (action.equals("decrypt")) {
                 Decrypter decrypter = new Decrypter();

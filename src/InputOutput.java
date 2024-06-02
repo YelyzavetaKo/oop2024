@@ -34,4 +34,12 @@ public class InputOutput {
         System.out.println();
     }
 
+    public String arrayToString(ArrayList<Integer> numeric){
+        StringBuilder sb = new StringBuilder();
+        numeric.forEach(num -> {
+            sb.append(num).append(" ");
+        });
+        return sb.toString();
+    }
+
 }
