@@ -11,11 +11,13 @@ public class Schluesselgenerator {
      * @param q Primzahl zuer Schluesselgenerierung.
      * @throws NotAPrimeException Wird geworfen, wenn p oder q keine Primzahl sind.
      */
-    public Schluesselgenerator(int p, int q) throws NotAPrimeException {
+    public Schluesselgenerator(int p, int q) throws NotAPrimeException, ProductOfPQTooLittleException {
         if (!pruefeObPrimzahl(p)) {
             throw new NotAPrimeException(p);
         } else if (!pruefeObPrimzahl(q)) {
             throw new NotAPrimeException(q);
+        } else if (berechneGeneratorzahl() < 255){
+            throw new ProductOfPQTooLittleException(p, q);
         } else {
             this.p = p;
             this.q = q;
