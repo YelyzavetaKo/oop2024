@@ -11,7 +11,7 @@ public class Encrypter {
      * @param q Primzahl zur Schluesselgenerierung.
      * @throws NotAPrimeException Falls p oder q keine Primzahlen sind, kann kein Schluessel gemaess RSA-Verfahren generiert werden, deshalb wird in diesem Fall ein Fehler ausgeworfen.
      */
-    public Encrypter(int p, int q) throws NotAPrimeException {
+    public Encrypter(int p, int q) throws NotAPrimeException, ProductOfPQTooLittleException {
         Schluesselgenerator sg = new Schluesselgenerator(p,q);
         this.key = sg.berechnePubKey();
     }
